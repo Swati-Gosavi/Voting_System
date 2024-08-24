@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voter Registration Page</title>
+<style>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: url('https://t4.ftcdn.net/jpg/07/74/14/23/240_F_774142379_91JMsWHVS0VfSKwub6di7UwAxJibQH56.jpg'); /* Replace with your image URL */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h3 {
+    color: #ffffff;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    margin: 0 0 10px 0;
+}
+
+form {
+    width: 100%;
+    max-width: 600px;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.5); /* Increased transparency */
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    backdrop-filter: blur(2px); /* Increased blur effect */
+}
+
+label {
+    color: #066210; /* text */
+    font-size: 1em;
+    font-weight: bold; /* Bold text */
+    margin-bottom: 6px;
+    display: block;
+    text-align: left;
+}
+
+input[type=text], input[type=password], input[type=date], select {
+    width: calc(100% - 20px);
+    padding: 10px 10px;
+    margin: 6px 0 12px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 0.9em;
+    transition: border-color 0.3s;
+}
+
+input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, select:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+button {
+    background-color: #28a745; /* Green shade */
+    color: white;
+    padding: 10px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1em;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #218838; /* Darker green shade on hover */
+}
+
+.cancelbtn {
+    background-color: #ff8f00; /* Changed to orange shade */
+    color: #fff; /* White text */
+    padding: 8px 16px; /* Smaller padding for smaller button */
+    border-radius: 5px;
+    font-size: 0.9em; /* Slightly smaller font size */
+    cursor: pointer;
+    border: none;
+    margin-top: 4px;
+    transition: background-color 0.3s;
+    width: auto; /* Button width adjusted to content */
+}
+
+.cancelbtn:hover {
+    background-color: #ec971f; /* Darker orange shade on hover */
+}
+
+.container {
+    padding: 5px 10px;
+}
+
+.title {
+    margin-bottom: 10px;
+}
+
+.login-link {
+    color: #ffffff;
+    margin-top: 15px;
+    display: block;
+    text-align: center;
+}
+
+.login-link a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+</style>
+</head>
+<body>
+    <div>
+        <div class="title">
+            <h3>Voter Registration</h3>
+        </div>
+        <form th:action="@{/goVoterRegister}" th:object="${voter}" method="post">
+            <div class="container">
+                <label for="VoterName">Voter Name :</label>
+                <input type="text" id="VoterName" placeholder="Enter your name" th:field="*{voterName}" required>
+                <span th:if="${#fields.hasErrors('voterName')}" th:errors="*{voterName}"></span>
+                
+                <label for="DOB">Date of Birth :</label>
+                <input type="date" id="DOB" th:field="*{DOB}" required>
+                <span th:if="${#fields.hasErrors('DOB')}" th:errors="*{DOB}"></span>
+                
+                <label for="gender">Gender :</label>
+                <select id="gender" th:field="*{gender}" required>
+                    <option value="" disabled selected>Select your gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+                <span th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></span>
+                
+                <label for="username">Username :</label>
+                <input type="text" id="username" placeholder="Enter your username" th:field="*{username}" required>
+                <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+                
+                <label for="password">Password :</label>
+                <input type="password" id="password" placeholder="Enter your password" th:field="*{password}" required>
+                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                
+                <button type="submit">Register</button>
+                <button type="reset" class="cancelbtn">Cancel</button>
+            </div>
+        </form>
+        <div class="login-link">
+            <p>Already registered? <span><a th:href="@{/voterlogin}">Voter Login</a></span>|<a th:href="@{/login}">Admin Login</a></p>
+        </div>
+        
+    </div>
+</body>
+</html>
